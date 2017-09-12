@@ -98,4 +98,4 @@ function closeNav() {
 }
 
 init();
-setInterval(drawMultiple(), 1000);
+setInterval(drawMultiple, 1000);
