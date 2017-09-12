@@ -90,7 +90,7 @@ function updateLabels() {
 }
 
 function openNav() {
-    document.getElementById("nav").style.width = "50%";
+    document.getElementById("nav").style.width = "25%";
 }
 
 function closeNav() {
