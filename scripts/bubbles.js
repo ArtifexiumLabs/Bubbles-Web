@@ -85,7 +85,7 @@ function redraw() {
 
 function updateLabels() {
     countLabel.innerHTML = "Bubbles: " + count;
-    additionLabel.innerHTML = "Bubbles/second: " + addition.toFixed(2);
+    additionLabel.innerHTML = "Bubbles/second: " + addition.toFixed(1);
 
 }
 
