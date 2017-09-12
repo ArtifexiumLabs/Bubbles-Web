@@ -3,92 +3,52 @@
 <head>
     <meta charset="utf-8">
     <title>Bubbles!</title>
-    <style>
-        body,
-        html {
-            width: 100%;
-            height: 100%;
-            margin: 0px;
-        }
-        
-        #bubbleCanvas {
-            z-index: 1;
-        }
-        
-        #btn {
-            z-index: 2;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-        }
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/overlay.css">
 </head>
 
 <body>
-    <canvas id="bubbleCanvas">
-    </canvas>
-    <button id="btn" onclick="buy10()">Buy 10!</button>
-    <script>
-        var canvas;
-        var context;
-        var bubbles = [];
-        var count = 0;
+    <!--Find alternative for javascript: void(0)-->
+    <div id="nav" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="overlay-content">
+            <a href="#" style="color: white; font-size: 72px;">Shop</a>
+            <a href="#" onclick="buy10()">Buy 10!</a>
+            <a href="#" onclick="buy50()">Buy 50!</a>
+            <a href="#" onclick="buy100()">Buy 100!</a>
+            <a href="#" onclick="buy500()">Buy 500!</a>
+            <a href="#" onclick="buy1000()">Buy 1000!</a>
+            <a href="#" onclick="buy2500()">Buy 2500!</a>
+            <a href="#" onclick="buy5000()">Buy 5000!</a>
+            <a href="#" onclick="buy10000()">Buy 10000!</a>
+            <a href="#" onclick="buy15000()">Buy 15000!</a>
+            <a href="#" onclick="buy20000()">Buy 20000!</a>
+            <a href="#" onclick="buy25000()">Buy 25000!</a>
+        </div>
+    </div>
 
-        function init() {
-            canvas = document.getElementById("bubbleCanvas");
-            canvas.addEventListener('click', drawOne, false);
-            context = canvas.getContext("2d");
-            context.canvas.width = window.innerWidth;
-            context.canvas.height = window.innerHeight;
-        }
+    <table style="width: 100%">
+        <tr>
+            <td>
+                <span onclick="openNav()" style="font-size: 36px; cursor: pointer;">&#9776</span>
+            </td>
+            <td class="labels">
+                <span id="count">Bubbles: 0</span>
+            </td>
+            <td class="labels">
+                <span id="addition">Bubbles/second: 0</span>
+            </td>
+        </tr>
+    </table>
 
-        function drawOne() {
-            var xPos = Math.floor(Math.random() * document.body.clientWidth);
-            var yPos = Math.floor(Math.random() * document.body.clientHeight);
-            var r = Math.floor((Math.random() * 100) + 10);
-            var c = getRandomColor();
-            bubbles.push({
-                x: xPos,
-                y: yPos,
-                radius: r,
-                color: c
-            });
-            count++;
-            context.beginPath();
-            context.arc(xPos, yPos, r, 0, 2 * Math.PI);
-            context.fillStyle = c;
-            context.fill();
-        }
+    <div class="canvas">
+        <canvas id="bubbleCanvas">
+        Your browser does not support this game.
+        </canvas>
+    </div>
 
-        function getRandomColor() {
-            var letters = '0123456789ABCDEF';
-            var color = '#';
-            for (var i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-        }
+    <script type="text/javascript" src="scripts/bubbles.js">
 
-        function buy10() {
-            if (bubbles.length < 10){
-                return;
-            }
-            bubbles.splice(0, 10);
-            redraw();
-        }
-
-        function redraw() {
-            context.clearRect(0, 0, canvas.width, canvas.height);
-            for (var i = 0; i < bubbles.length; i++) {
-                context.beginPath();
-                context.arc(bubbles[i].x, bubbles[i].y, bubbles[i].radius, 0, 2 * Math.PI);
-                context.fillStyle = bubbles[i].color;
-                context.fill();
-            }
-        }
-
-        init();
 
     </script>
 </body>
