@@ -12,31 +12,33 @@
     <div id="nav" class="overlay">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <div class="overlay-content">
-            <a href="#" style="color: white; font-size: 72px;">Shop</a>
-            <a href="#" onclick="buy10()">Buy 10!</a>
-            <a href="#" onclick="buy50()">Buy 50!</a>
-            <a href="#" onclick="buy100()">Buy 100!</a>
-            <a href="#" onclick="buy500()">Buy 500!</a>
-            <a href="#" onclick="buy1000()">Buy 1000!</a>
-            <a href="#" onclick="buy2500()">Buy 2500!</a>
-            <a href="#" onclick="buy5000()">Buy 5000!</a>
-            <a href="#" onclick="buy10000()">Buy 10000!</a>
-            <a href="#" onclick="buy15000()">Buy 15000!</a>
-            <a href="#" onclick="buy20000()">Buy 20000!</a>
-            <a href="#" onclick="buy25000()">Buy 25000!</a>
+            <span style="color: white; font-size: 72px;">Hire Workers to Click</span>
+            <a href="#" onclick="buy(10, 0.1)">10|Hire a Little Old Lady|0.1/s</a>
+            <a href="#" onclick="buy(50, 0.3)">50|Hire a Dumb Monkey|0.3/s</a>
+            <a href="#" onclick="buy(100, 0.5)">100|Hire a Smart Monkey|0.5/s</a>
+            <a href="#" onclick="buy(500, 1.15)">500|Hire TWO Smart Monkies|1.15/s</a>
+            <a href="#" onclick="buy(1000, 2.3)">1,000|Hire a REALLY Smart Monkey|2.3/s</a>
+            <a href="#" onclick="buy(2500, 5)">2,500|Hire a Monkey that Outsources to Gorrilas|5.0/s</a>
+            <a href="#" onclick="buy(5000, 12)">5,000|Hire a Team of Monkies|12.0/s</a>
+            <a href="#" onclick="buy(10000, 25)">10,000|Hire a Small African Child 25.0/s</a>
+            <a href="#" onclick="buy(15000, 50)">15,000|Hire Depressed Office Worker 50.0/s</a>
+            <a href="#" onclick="buy(20000, 100)">Hire Someone Dumb Enough to Play This 100.0/s</a>
+            <a href="#" onclick="buy(25000, 500)">Hire a League of Legends Player 500.0/s</a>
         </div>
     </div>
 
-    <table style="width: 100%">
+    <script type="text/javascript" src="scripts/nav.js"></script>
+
+    <table style="width: 100%; background-color: dimgray">
         <tr>
             <td>
                 <span onclick="openNav()" style="font-size: 36px; cursor: pointer;">&#9776</span>
             </td>
             <td class="labels">
-                <span id="count">Bubbles: 0</span>
+                <span id="addition">Bubbles/second: 0</span>
             </td>
             <td class="labels">
-                <span id="addition">Bubbles/second: 0</span>
+                <span id="count">Bubbles: 0</span>
             </td>
         </tr>
     </table>

@@ -1,3 +1,9 @@
+//TODO Move Bubbles/second label
+//TODO add more hiring options
+//TODO begin work on hiring factories
+//TODO stress test
+//TODO only allow 5000 bubbles to be saved, after that, bubbles are not saved, only generated and drawn. If bubbles fall below 5000, clear, and draw remaining bubbles.
+
 var canvas;
 var context;
 var bubbles = [];
@@ -11,8 +17,10 @@ function init() {
     canvas = document.getElementById("bubbleCanvas");
     canvas.addEventListener('click', drawOne, false);
     context = canvas.getContext("2d");
-    context.canvas.width = window.innerWidth;
-    context.canvas.height = window.innerHeight;
+    window.onload = window.onresize = function () {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    };
     countLabel = document.getElementById("count");
     additionLabel = document.getElementById("addition");
     updateLabels();
@@ -43,14 +51,10 @@ function drawMultiple() {
         carryOver--;
         drawOne();
     }
-    if (addition < 1) {
-        carryOver += addition;
-    } else {
-        for (var i = 0; i < addition; i++) {
-            drawOne();
-        }
+    carryOver += addition % 1;
+    for (var i = 0; i < addition - addition % 1; i++) {
+        drawOne();
     }
-
 }
 
 function getRandomColor() {
@@ -62,13 +66,13 @@ function getRandomColor() {
     return color;
 }
 
-function buy10() {
-    if (bubbles.length < 10) {
+function buy(amount, rate) {
+    if (bubbles.length < amount) {
         return;
     }
-    bubbles.splice(0, 10);
-    count -= 10;
-    addition += 0.1;
+    bubbles.splice(0, amount);
+    count -= amount;
+    addition += rate;
     redraw();
 }
 
@@ -87,14 +91,6 @@ function updateLabels() {
     countLabel.innerHTML = "Bubbles: " + count;
     additionLabel.innerHTML = "Bubbles/second: " + addition.toFixed(1);
 
-}
-
-function openNav() {
-    document.getElementById("nav").style.width = "25%";
-}
-
-function closeNav() {
-    document.getElementById("nav").style.width = "0%";
 }
 
 init();
