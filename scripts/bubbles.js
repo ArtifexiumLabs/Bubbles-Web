@@ -14,6 +14,7 @@ var additionLabel;
 
 function init() {
     canvas = document.getElementById("bubbleCanvas");
+    canvas.addEventListener('click', preventZoom);
     canvas.addEventListener('click', drawOne, false);
     context = canvas.getContext("2d");
     window.onload = window.onresize = function () {
@@ -90,6 +91,19 @@ function updateLabels() {
     countLabel.innerHTML = "Bubbles: " + count;
     additionLabel.innerHTML = "Bubbles/second: " + addition.toFixed(1);
 
+}
+
+function preventZoom(e) {
+    var t2 = e.timeStamp;
+    var t1 = e.currentTarget.dataset.lastTouch || t2;
+    var dt = t2 - t1;
+    var fingers = e.touches.length;
+    e.currentTarget.dataset.lastTouch = t2;
+
+    if (!dt || dt > 500 || fingers > 1) return; // not double-tap
+
+    e.preventDefault();
+    e.target.click();
 }
 
 init();
