@@ -14,7 +14,7 @@ var additionLabel;
 
 function init() {
     canvas = document.getElementById("bubbleCanvas");
-    canvas.addEventListener('click', preventZoom);
+    canvas.addEventListener('touchstart', preventZoom);
     canvas.addEventListener('click', drawOne, false);
     context = canvas.getContext("2d");
     window.onload = window.onresize = function () {
