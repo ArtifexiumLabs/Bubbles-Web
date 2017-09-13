@@ -1,4 +1,3 @@
-//TODO Move Bubbles/second label
 //TODO add more hiring options
 //TODO begin work on hiring factories
 //TODO stress test

@@ -1,5 +1,13 @@
+var navOpen;
+
 function openNav() {
-    document.getElementById("nav").style.width = "40%";
+    if (navOpen) {
+        navOpen = false;
+        closeNav();
+    } else {
+        document.getElementById("nav").style.width = "40%";
+        navOpen = true;
+    }
 }
 
 function closeNav() {
