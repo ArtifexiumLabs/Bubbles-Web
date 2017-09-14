@@ -5,7 +5,7 @@ function openNav() {
         navOpen = false;
         closeNav();
     } else {
-        document.getElementById("nav").style.width = "40%";
+        document.getElementById("nav").style.width = "66%";
         navOpen = true;
     }
 }

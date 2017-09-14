@@ -1,7 +1,4 @@
-//TODO add more hiring options
 //TODO begin work on hiring factories
-//TODO stress test
-//TODO only allow 5000 bubbles to be saved, after that, bubbles are not saved, only generated and drawn. If bubbles fall below 5000, clear, and draw remaining bubbles.
 
 var canvas;
 var context;
@@ -15,7 +12,7 @@ var additionLabel;
 function init() {
     canvas = document.getElementById("bubbleCanvas");
     canvas.addEventListener('touchstart', preventZoom);
-    canvas.addEventListener('click', drawOne, false);
+    canvas.addEventListener('click', userClick, false);
     context = canvas.getContext("2d");
     window.onload = window.onresize = function () {
         canvas.width = window.innerWidth;
@@ -24,7 +21,11 @@ function init() {
     countLabel = document.getElementById("count");
     additionLabel = document.getElementById("addition");
     updateLabels();
+}
 
+function userClick() {
+    drawOne();
+    updateLabels();
 }
 
 function drawOne() {
@@ -32,18 +33,19 @@ function drawOne() {
     var yPos = Math.floor(Math.random() * document.body.clientHeight);
     var r = Math.floor((Math.random() * 100) + 10);
     var c = getRandomColor();
-    bubbles.push({
-        x: xPos,
-        y: yPos,
-        radius: r,
-        color: c
-    });
+    if (bubbles.length < 5000) {
+        bubbles.push({
+            x: xPos,
+            y: yPos,
+            radius: r,
+            color: c
+        });
+    }
     count++;
     context.beginPath();
     context.arc(xPos, yPos, r, 0, 2 * Math.PI);
     context.fillStyle = c;
     context.fill();
-    updateLabels();
 }
 
 function drawMultiple() {
@@ -53,8 +55,14 @@ function drawMultiple() {
     }
     carryOver += addition % 1;
     for (var i = 0; i < addition - addition % 1; i++) {
-        drawOne();
+        if (i < 500) {
+            drawOne();
+        } else {
+            count += addition - 500;
+            break;
+        }
     }
+
 }
 
 function getRandomColor() {
@@ -67,11 +75,13 @@ function getRandomColor() {
 }
 
 function buy(amount, rate) {
-    if (bubbles.length < amount) {
+    if (count < amount) {
         return;
     }
-    bubbles.splice(0, amount);
     count -= amount;
+    if (count < 5000) {
+        bubbles.splice(0, 5000 - count);
+    }
     addition += rate;
     redraw();
 }
@@ -88,9 +98,8 @@ function redraw() {
 }
 
 function updateLabels() {
-    countLabel.innerHTML = "Bubbles: " + count;
+    countLabel.innerHTML = "Bubbles: " + count.toFixed(1);
     additionLabel.innerHTML = "Bubbles/second: " + addition.toFixed(1);
-
 }
 
 function preventZoom(e) {
@@ -100,7 +109,8 @@ function preventZoom(e) {
     var fingers = e.touches.length;
     e.currentTarget.dataset.lastTouch = t2;
 
-    if (!dt || dt > 500 || fingers > 1) return; // not double-tap
+    if (!dt || dt > 500 || fingers > 1)
+        return; // not double-tap
 
     e.preventDefault();
     e.target.click();
@@ -108,3 +118,4 @@ function preventZoom(e) {
 
 init();
 setInterval(drawMultiple, 1000);
+setInterval(updateLabels, 1000);
