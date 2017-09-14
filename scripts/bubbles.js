@@ -99,7 +99,7 @@ function redraw() {
 
 function updateLabels() {
     countLabel.innerHTML = "Bubbles: " + count.toFixed(1);
-    additionLabel.innerHTML = "Bubbles/second: " + addition.toFixed(1);
+    additionLabel.innerHTML = "Bubbles/second: " + Math.round(addition);
 }
 
 function preventZoom(e) {
