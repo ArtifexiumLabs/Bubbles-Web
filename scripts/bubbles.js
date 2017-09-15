@@ -98,8 +98,8 @@ function redraw() {
 }
 
 function updateLabels() {
-    countLabel.innerHTML = "Bubbles: " + count.toFixed(1);
-    additionLabel.innerHTML = "Bubbles/second: " + Math.round(addition);
+    countLabel.innerHTML = "Bubbles: " + Math.floor(count);
+    additionLabel.innerHTML = "Bubbles/second: " + Math.Fixed(1);
 }
 
 function preventZoom(e) {
