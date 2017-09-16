@@ -1,13 +1,17 @@
-//TODO begin work on hiring factories
+/*jshint esversion: 6*/
 
+//TODO begin work on hiring factories
+//TODO find out why when you download something in another screen, the bubbles go away
 var canvas;
 var context;
 var bubbles = [];
 var count = 0;
-var addition = 0;
+var rate = 0;
 var carryOver = 0;
 var countLabel;
-var additionLabel;
+var rateLabel;
+const BUBBLES_TO_SAVE = 5000;
+const MAX_BUBBLES_TO_DRAW = 500;
 
 function init() {
     canvas = document.getElementById("bubbleCanvas");
@@ -19,7 +23,7 @@ function init() {
         canvas.height = window.innerHeight;
     };
     countLabel = document.getElementById("count");
-    additionLabel = document.getElementById("addition");
+    rateLabel = document.getElementById("rate");
     updateLabels();
 }
 
@@ -33,7 +37,7 @@ function drawOne() {
     var yPos = Math.floor(Math.random() * document.body.clientHeight);
     var r = Math.floor((Math.random() * 100) + 10);
     var c = getRandomColor();
-    if (bubbles.length < 5000) {
+    if (bubbles.length < BUBBLES_TO_SAVE) {
         bubbles.push({
             x: xPos,
             y: yPos,
@@ -53,16 +57,15 @@ function drawMultiple() {
         carryOver--;
         drawOne();
     }
-    carryOver += addition % 1;
-    for (var i = 0; i < addition - addition % 1; i++) {
-        if (i < 500) {
+    carryOver += rate % 1;
+    for (var i = 0; i < rate - rate % 1; i++) {
+        if (i < MAX_BUBBLES_TO_DRAW) {
             drawOne();
         } else {
-            count += addition - 500;
+            count += rate - MAX_BUBBLES_TO_DRAW;
             break;
         }
     }
-
 }
 
 function getRandomColor() {
@@ -74,16 +77,16 @@ function getRandomColor() {
     return color;
 }
 
-function buy(amount, rate) {
+function buy(amount, r) {
     if (count < amount) {
         return;
     }
     count -= amount;
-    if (count < 5000) {
-        bubbles.splice(0, 5000 - count);
+    rate += r;
+    if (count < BUBBLES_TO_SAVE) {
+        bubbles.splice(0, bubbles.length - count);
+        redraw();
     }
-    addition += rate;
-    redraw();
 }
 
 function redraw() {
@@ -99,7 +102,7 @@ function redraw() {
 
 function updateLabels() {
     countLabel.innerHTML = "Bubbles: " + Math.floor(count);
-    additionLabel.innerHTML = "Bubbles/second: " + addition.toFixed(1);
+    rateLabel.innerHTML = "Bubbles/second: " + rate.toFixed(1);
 }
 
 function preventZoom(e) {
